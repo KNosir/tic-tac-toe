@@ -29,12 +29,12 @@ def win_or_lose(table):
         table[1][0] == table[1][1] == table[1][2] == "X"
         or table[1][0] == table[1][1] == table[1][2] == "O"
     ):
-        return str(f"Winner is {table[0][0]}")
+        return str(f"Winner is {table[1][0]}")
     elif (
         table[2][0] == table[2][1] == table[2][2] == "X"
         or table[2][0] == table[2][1] == table[2][2] == "O"
     ):
-        return fstr(f"Winner is {table[0][0]}")
+        return str(f"Winner is {table[2][0]}")
     elif (
         table[0][0] == table[1][0] == table[2][0] == "X"
         or table[0][0] == table[1][0] == table[2][0] == "O"
@@ -44,12 +44,12 @@ def win_or_lose(table):
         table[0][1] == table[1][1] == table[2][1] == "X"
         or table[0][1] == table[1][1] == table[2][1] == "O"
     ):
-        return str(f"Winner is {table[0][0]}")
+        return str(f"Winner is {table[0][1]}")
     elif (
         table[0][2] == table[1][2] == table[2][2] == "X"
         or table[0][2] == table[1][2] == table[2][2] == "O"
     ):
-        return str(f"Winner is {table[0][0]}")
+        return str(f"Winner is {table[0][2]}")
     elif (
         table[0][0] == table[1][1] == table[2][2] == "X"
         or table[0][0] == table[1][1] == table[2][2] == "O"
@@ -59,7 +59,7 @@ def win_or_lose(table):
         table[0][2] == table[1][1] == table[2][0] == "X"
         or table[0][2] == table[1][1] == table[2][0] == "O"
     ):
-        return str(f"Winner is {table[0][0]}")
+        return str(f"Winner is {table[0][2]}")
     else:
         return False
 
@@ -93,17 +93,25 @@ count = 0
 list_number = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 list2 = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 print("""X start's the game""")
-while True:
+start_value = True
+
+while start_value:
     print_form(data)
 
     if win_or_lose(data) == False:
         number = "text"
+        # Analyzing symbols only for numbers between 1-9
         while True:
-            number = int(input())
+            number = input("Number: ")
+            try:
+                number = int(number)
+            except:
+                pass
             if number in list2:
                 break
             else:
                 print("Enter a valid number")
+
         count += 1
         try:
             list2.remove(number)
@@ -123,8 +131,7 @@ while True:
                 data[1][number - 4] = "O"
             else:
                 data[0][number - 7] = "O"
-
-    elif count == 10:
+    elif len(list2) == 0:
         print("No one is winner")
         data = free_templ
         list2 = list_number
@@ -132,7 +139,7 @@ while True:
 
     else:
         print(win_or_lose(data))
-        print("Start the new game")
+        print("Started a the new game")
         data = free_templ
         list2 = list_number
         count = 0
